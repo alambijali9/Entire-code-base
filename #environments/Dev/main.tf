@@ -57,3 +57,28 @@ module "mssql" {
 sql=var.sql
 
 }
+
+module "loadbalancer" {
+  depends_on = [ module.resource_group,module.virtual-machine ]
+  source = "../../modules/azurerm-loadbalancer"
+
+lb=var.lb
+
+}
+
+module"dynamic-virtual-network" {
+  depends_on = [ module.resource_group, ]
+  source = "../../modules/azurerm-dynamicblock-vnet"
+
+dyna-vnet=var.dyna-vnet
+
+}
+
+
+module"dynamic-virtual-network" {
+  depends_on = [ module.resource_group, ]
+  source = "../../modules/azurerm-dynamicblock-nsg"
+
+dyna-nsg=var.dyna-nsg
+
+}

@@ -102,3 +102,77 @@ sql = {
 
 
 }
+
+lb = {
+
+  pip_name                 = "PublicIPForLB"
+  location                 = "centralindia"
+  resource_group_name      = "technical-rg"
+  allocation_method        = "Static"
+  lb_name                  = "fend-loadbalancer"
+  pip_sku                  = "standard"
+  lb_sku                   = "standard"
+  front-ip-config-name     = "PublicIPAddress"
+  lb_bkpool-address-name-1 = "backend-nic-address1"
+  lb_bkpool-address-name-2 = "backend-nic-address2"
+  vnet_name                = "network1"
+  nic1_name                = "vm1-nic"
+  nic2_name                = "vm2-nic"
+}
+
+dyna-vnet = {
+
+  vnet = {
+
+    name                = "dynamic-net"
+    location            = azurerm_resource_group.example.location
+    resource_group_name = azurerm_resource_group.example.name
+    address_space       = ["192.168.0.0/16"]
+    subnets = {
+
+      snet1 = {
+        name           = "subnet1"
+        address_prefix = "192.168.1.0/24"
+      }
+        snet2 = {
+        name           = "subnet2"
+        address_prefix = "192.168.2.0/24"
+      }
+
+    }
+
+  }
+
+}
+
+dyna-nsg = {
+
+  nsg1 = {
+
+    name                = "dynamic-nsg"
+    location            = "centralindia"
+    resource_group_name = "technical-rg"
+    security_rule = {
+
+      rule1 = {
+
+        name                       = "test123"
+        priority                   = 100
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "*"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+
+      }
+
+    }
+
+
+  }
+
+}
+
+
